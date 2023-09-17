@@ -1,3 +1,7 @@
+// This program is to test the servos of the left arm of the Inmoov robot. 
+// At the end of the code, the F key is to develop a small movement
+
+
 #include <Servo.h>
 
 Servo lthumb, lindex, lmajeur, lpinky, lring, lbicep, lrotate, lshoulder, lclavi, jaw, head, head_rotate;
@@ -7,14 +11,14 @@ void setup() {
   lindex.attach(3);
   lmajeur.attach(4);
   jaw.attach(5);
-  lpinky.attach(6);
+  lpinky.attach(6); 
   lthumb.attach(7);
   lbicep.attach(8);
   lrotate.attach(9);
   lshoulder.attach(10);
   lclavi.attach(11);
   head.attach(12);
-  //head_rotate.attach(13);
+  //head_rotate.attach(13);  // When this is attached full noise cames from the head. still in revision
   Serial.begin(9600);
 
 
