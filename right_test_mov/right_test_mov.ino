@@ -1,3 +1,7 @@
+//This code is set to test the right side of the inmoov robot
+//it is part for the capstone project Hanoi Droid sep 2023
+
+
 #include <Servo.h>
 
 Servo rthumb, rindex, rmajeur, rpinky, rring, rbicep, rrotate, rshoulder, rclavi;
@@ -8,10 +12,10 @@ void setup() {
   rmajeur.attach(4);
   rpinky.attach(6);
   rring.attach(7);
-  rbicep.attach(8);
+  rbicep.attach(8); //sep 2023: signal ok from arduino, servo not responding
   rrotate.attach(9);
   rshoulder.attach(10);
-  rclavi.attach(11);
+  rclavi.attach(11); //sep 2023: signal ok from arduino, servo not responding
   Serial.begin(9600);
 
 
