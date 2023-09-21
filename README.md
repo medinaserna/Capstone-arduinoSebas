@@ -3,8 +3,8 @@ The purpose of the left and right code inside left and right respectively folder
  The left arm is controlled by Arduino Mega board, right arm is controlled by Arduino Uno board.
  
  Team members:
- Sama Osman
- Juan Ochoa
- Sebastian Medina
+  Sama Osman, 
+ Juan Ochoa, 
+ Sebastian Medina. 
  Fall 2023. Camosun College
  Victoria BC - Canada
