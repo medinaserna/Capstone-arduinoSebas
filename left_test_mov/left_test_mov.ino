@@ -187,23 +187,12 @@ void loop() {
     else if (input == 'F') {
       //mini demo movements
 
-    
-      lshoulder.write(40);
-      lbicep.write(90);
-      lclavi.write(130);
-      delay(2000);
-
-      lbicep.write(60);
-      lclavi.write(100);
+       lshoulder.write(85);
+      lbicep.write(95);
+     delay(2000);
+      lrotate.write(20);
       delay(3000);
-      lbicep.write(90);
-      lshoulder.write(60);
-      delay(2000);
-      lrotate.write(30);
-      delay(3000);
-      lrotate.write(90);
-      delay(3000);
-      lshoulder.write(10);
+ 
 
     }
 
