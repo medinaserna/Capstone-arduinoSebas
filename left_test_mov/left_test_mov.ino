@@ -18,7 +18,7 @@ void setup() {
   lshoulder.attach(10);
   lclavi.attach(11);
   head.attach(12);
-  //head_rotate.attach(13);  // When this is attached full noise cames from the head. still in revision
+  head_rotate.attach(13);  // When this is attached full noise cames from the head. still in revision
   Serial.begin(9600);
 
 
@@ -29,7 +29,7 @@ lbicep.write(60);
 lclavi.write(100);
 head.write(100);
 jaw.write(60);
-//head_rotate.write(30);
+head_rotate.write(90);
 
 }
 
@@ -187,10 +187,10 @@ void loop() {
     else if (input == 'F') {
       //mini demo movements
 
-       lshoulder.write(85);
-      lbicep.write(95);
+       lshoulder.write(85);   //tecla A
+      lbicep.write(95);     //tecla 8
      delay(2000);
-      lrotate.write(20);
+      lrotate.write(20);  //tecla 9
       delay(3000);
  
 
