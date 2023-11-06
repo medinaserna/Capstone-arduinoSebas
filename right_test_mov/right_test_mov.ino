@@ -26,7 +26,8 @@ rindex.write(90);
 rrotate.write(80);
 rshoulder.write(60);
 rbicep.write(110);
-rclavi.write(100);
+rclavi.write(105);
+rclavi.write(105);
 
 
 
@@ -105,7 +106,7 @@ void loop() {
       newPosition = Serial.parseInt();
       if (newPosition >= 0 && newPosition <= 180) {
         rbicep.write(newPosition);
-        Serial.println("Servo 6 position set to: " + String(newPosition));
+        Serial.println("BICEP position set to: " + String(newPosition));
       } else {
         Serial.println("Invalid position. Please enter a value between 0 and 180.");
       }
@@ -117,7 +118,7 @@ void loop() {
       newPosition = Serial.parseInt();
       if (newPosition >= 0 && newPosition <= 180) {
         rrotate.write(newPosition);
-        Serial.println("Servo 7 position set to: " + String(newPosition));
+        Serial.println("ROTATE position set to: " + String(newPosition));
       } else {
         Serial.println("Invalid position. Please enter a value between 0 and 180.");
       }
@@ -129,7 +130,7 @@ void loop() {
       newPosition = Serial.parseInt();
       if (newPosition >= 0 && newPosition <= 180) {
         rshoulder.write(newPosition);
-        Serial.println("Servo 8 position set to: " + String(newPosition));
+        Serial.println("SHOULDER position set to: " + String(newPosition));
       } else {
         Serial.println("Invalid position. Please enter a value between 0 and 180.");
       }
@@ -141,7 +142,7 @@ void loop() {
       newPosition = Serial.parseInt();
       if (newPosition >= 0 && newPosition <= 180) {
         rclavi.write(newPosition);
-        Serial.println("Servo 9 position set to: " + String(newPosition));
+        Serial.println("CLAVI position set to: " + String(newPosition));
       } else {
         Serial.println("Invalid position. Please enter a value between 0 and 180.");
       }
