@@ -27,7 +27,7 @@ rrotate.write(80);
 rshoulder.write(60);
 rbicep.write(110);
 rclavi.write(105);
-rclavi.write(105);
+rclavi.write(98);
 
 
 
