@@ -27,49 +27,57 @@ p0      p1     p2       p3
 
 p0 is the rest position, and p1, p2 and p3 the pillars respectively
 
+
+**Note: beacuse many functions will be mirrored based on the arm, they will have the same name and the difference will be the 'r' o 'l' letter precendent to the name. ie: rGoToHover0(), rUseMagnet()
+
+
 */
 
 
 #include <Servo.h>
 
+#define rMagnetPin A0
+
+
+// servo name declaration
 Servo rthumb, rindex, rmajeur, rpinky, rring, rbicep, rrotate, rshoulder, rclavi;
 
 //global variables
-char rMagnetInUse = 0;
-char restPosition = 1;
+char rMagnetInUse = 0;  // indicates if the magnet is on or off
+char rRestPosition = 1;  // indicates if the robot arm is in rest position
 
 //functions defintions
-void rUseMagnet(void);
-void goToHover0(void);
+void rUseMagnet(void);  //function used to turn on or off the magnet
+void rGoToHover0(void);  //function that send commands to the servomotors to go to the hover0 position
 
 
 void setup() {
+
+  //attach all the the servos names to a specific pin in the board (UNO)
   rthumb.attach(2);
   rindex.attach(3);
   rmajeur.attach(4);
   rpinky.attach(6);
   rring.attach(7);
-  rbicep.attach(8);  //sep 2023: signal ok from arduino, servo not responding
+  rbicep.attach(8);
   rrotate.attach(9);
   rshoulder.attach(10);
-  rclavi.attach(11);  //sep 2023: signal ok from arduino, servo not responding
+  rclavi.attach(11);
+
   Serial.begin(9600);
 
 
-  pinMode(31, OUTPUT);  //this pin is the one to turn on/off the magnet
+  pinMode(rMagnetPin, OUTPUT);  //this pin is the one to turn on/off the magnet
 
-  //all the servos to rest position
 
+  //all the servos to rest position or p0
   rthumb.write(90);
   rindex.write(90);
   rrotate.write(80);
   rshoulder.write(60);
   rbicep.write(110);
   rclavi.write(105);
- // rclavi.write(98);
-
-  //
-  //rUseMagnet(void); //at rest the magnet should be off
+  // rclavi.write(98);
 }
 
 void loop() {
@@ -79,110 +87,152 @@ void loop() {
 
     // move  from the rest and go to catch disc in pillar 1
     if (input == '1') {
-      
-if (restPosition == 1){
-goToHover0();
-restPosition = 0;
-}
 
-      
+      if (rRestPosition == 1) {
+        rGoToHover0();
+        rRestPosition = 0;
+      }
+
+
       //go to hover1
-        rshoulder.write(120);
-           rrotate.write(40);
-            delay(2000);
-        rclavi.write(120);
+      rshoulder.write(120);
+      rrotate.write(40);
+      delay(2000);
+      rclavi.write(120);
       delay(1000);
       rbicep.write(135);
       delay(1000);
-   
-      
- 
+
+
+
 
       //go to pillar 1
       rrotate.write(20);
       delay(2000);
       rshoulder.write(90);
-      delay(2000);
+      delay(3000);
       //turn on the magnet to catch the disc
       rUseMagnet();
       delay(2000);
-      
+
       // hover1
-        rshoulder.write(120);
-           rrotate.write(40);
-            delay(2000);
-        rclavi.write(120);
+      rshoulder.write(120);
+      rrotate.write(40);
+      delay(2000);
+      rclavi.write(120);
       delay(1000);
       rbicep.write(135);
       delay(1000);
     }
 
     // from hover1 to pillar 2
-    else if (input == '2') {
-
-if (restPosition == 1){
-goToHover0();
-restPosition = 0;
-}
 
 
-//hover 2
-     
-       rshoulder.write(120);
-    rclavi.write(105);
-    rbicep.write(135);
+//  IMPORTANT NOTE: the following commented code is for a pillar that position was causing problems when reaching pillar3, using right arm
+// the uncommented code the pillar 2 is lowe
+  /*  //  catch disc in pillar 2 
+  else if (input == '2') {
+
+//this code is for prevention, from going from a p0 position directly to the hover 1, or hover 2 or hover 3.
+      if (rRestPosition == 1) {
+        rGoToHover0();
+        rRestPosition = 0;
+      }
+
+
+      //hover 2
+      rshoulder.write(120);
+      rclavi.write(105);
+      rbicep.write(135);
       delay(2000);
       rrotate.write(30);
       delay(2000);
 
-//go to pillar 2
+      //go to pillar 2
 
-       rclavi.write(105);
- rrotate.write(25);
- delay(1000);
+      rclavi.write(105);
+      rrotate.write(25);
+      delay(1000);
       rshoulder.write(95);
-
-      delay(2000);
+      delay(3000);
       rUseMagnet();
-delay(1000);
+      delay(1000);
 
 
-      //go to hover pillar2
-      
-       rshoulder.write(120);
-    rclavi.write(105);
-    rbicep.write(135);
+      //go to hover2
+      rshoulder.write(120);
+      rclavi.write(105);
+      rbicep.write(135);
       delay(2000);
       rrotate.write(30);
+      delay(2000);
+
+    } */
+
+// go and catch pillar2 disc
+ else if (input == '2') {
+
+//this code is for prevention, from going from a p0 position directly to the hover 1, or hover 2 or hover 3.
+      if (rRestPosition == 1) {
+        rGoToHover0();
+        rRestPosition = 0;
+      }
+
+
+      //hover 2
+      rshoulder.write(120);
+      rclavi.write(97);
+      rbicep.write(120);
+      delay(2000);
+      rrotate.write(25);
+      delay(2000);
+
+      //go to pillar 2
+
+      rclavi.write(97);
+      rrotate.write(25);
+      delay(1000);
+      rshoulder.write(95);
+      delay(3000);
+      rUseMagnet();
+      delay(1000);
+
+
+      //go to hover2
+      rshoulder.write(120);
+      rclavi.write(97);
+      rbicep.write(120);
+      delay(2000);
+      rrotate.write(25);
       delay(2000);
 
     }
 
+
     else if (input == '3') {
-      
-      if (restPosition == 1){
-goToHover0();
-restPosition = 0;
-}
-      
-      
+
+      if (rRestPosition == 1) {
+        rGoToHover0();
+        rRestPosition = 0;
+      }
+
+
       // got to hover 3
       rshoulder.write(120);
       rclavi.write(95);
       rbicep.write(135);
       delay(2000);
-       rrotate.write(0);
-       delay(2000);
-      
-      
-      //go to pillar 3
+      rrotate.write(10);
+      delay(2000);
 
-      rrotate.write(0);
+
+      //go to pillar 3
+      rrotate.write(10);
       delay(2000);
       rshoulder.write(93);
-      delay(2000);
+      delay(3000);
       rUseMagnet();
-delay (1000);
+      delay(1000);
 
 
       //go to hover3
@@ -190,27 +240,22 @@ delay (1000);
       rclavi.write(95);
       rbicep.write(135);
       delay(2000);
-rrotate.write(0);
+      rrotate.write(10);
+      delay(2000);
 
     }
 
     else if (input == '4') {
-//go to hover 0
-      rclavi.write(120);
-      delay(1000);
-      rshoulder.write(130);
-       rrotate.write(80);
-      delay(3000);
-rbicep.write(110);
-delay(1000);
 
-//go to M0 or rest
+      rGoToHover0();
 
-  rrotate.write(80);
-  rshoulder.write(60);
-  rbicep.write(110);
-  rclavi.write(105);
-restPosition = 1;
+      //go to p0 or rest
+
+      rrotate.write(80);
+      rshoulder.write(60);
+      rbicep.write(110);
+      rclavi.write(105);
+      rRestPosition = 1;
 
     }
 
@@ -284,13 +329,13 @@ restPosition = 1;
 void rUseMagnet() {
 
   if (rMagnetInUse == 0) {
-    digitalWrite(31, HIGH);
+    digitalWrite(rMagnetPin, HIGH);
     // digitalWrite(33, HIGH);
     rMagnetInUse = 1;
     Serial.println("magnets on");
 
   } else {
-    digitalWrite(31, LOW);
+    digitalWrite(rMagnetPin, LOW);
     //digitalWrite(33, LOW);
     rMagnetInUse = 0;
     Serial.println("magnets off");
@@ -298,15 +343,14 @@ void rUseMagnet() {
 }
 
 
-void goToHover0() {
-//go to hover 0
-      rclavi.write(120);
-      delay(1000);
-      rshoulder.write(130);
-       rrotate.write(80);
-      delay(3000);
-rbicep.write(110);
-delay(1000);
+void rGoToHover0() {
+  //go to hover 0
+  
+  rshoulder.write(130);
+   rclavi.write(120);
+  delay(1000);
 
-
+  rrotate.write(80);
+  rbicep.write(110);
+  delay(2000);
 }
