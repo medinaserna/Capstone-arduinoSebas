@@ -85,8 +85,16 @@ void loop() {
     char input = Serial.read();
     int newPosition;
 
-    // move  from the rest and go to catch disc in pillar 1
+    
     if (input == '1') {
+
+              rGoToHover0();
+        rRestPosition = 0;
+      
+    }
+    
+    // move  from the rest and go to catch disc in pillar 1
+   else if (input == '2') {
 
       if (rRestPosition == 1) {
         rGoToHover0();
@@ -119,7 +127,7 @@ void loop() {
       rshoulder.write(120);
       rrotate.write(40);
       delay(2000);
-      rclavi.write(120);
+      rclavi.write(115);
       delay(1000);
       rbicep.write(135);
       delay(1000);
@@ -170,7 +178,7 @@ void loop() {
     } */
 
 // go and catch pillar2 disc
- else if (input == '2') {
+ else if (input == '3') {
 
 //this code is for prevention, from going from a p0 position directly to the hover 1, or hover 2 or hover 3.
       if (rRestPosition == 1) {
@@ -209,7 +217,7 @@ void loop() {
     }
 
 
-    else if (input == '3') {
+    else if (input == '4') {  // GO TO PILLAR 3
 
       if (rRestPosition == 1) {
         rGoToHover0();
@@ -245,7 +253,7 @@ void loop() {
 
     }
 
-    else if (input == '4') {
+    else if (input == '5') {  // GO TO REST
 
       rGoToHover0();
 
@@ -259,7 +267,7 @@ void loop() {
 
     }
 
-    else if (input == '5') {
+    else if (input == '6') {
       Serial.println("Enter position for Servo 2 (0-180):");
       while (!Serial.available())
         ;
@@ -346,11 +354,11 @@ void rUseMagnet() {
 void rGoToHover0() {
   //go to hover 0
   
-  rshoulder.write(130);
+  rshoulder.write(110);
    rclavi.write(120);
   delay(1000);
 
   rrotate.write(80);
-  rbicep.write(110);
+  rbicep.write(130);
   delay(2000);
 }

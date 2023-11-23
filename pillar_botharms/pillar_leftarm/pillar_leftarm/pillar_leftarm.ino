@@ -92,12 +92,10 @@ void loop() {
     // move from rest and go to the hover0 position
     if (input == '1') {
 
-
-      if (lRestPosition == 1) {
+     
         lGoToHover0();
         lRestPosition = 0;
-      }
-
+      
 
     }
 
@@ -143,7 +141,7 @@ void loop() {
 
       // hover 2 with left arm
       lshoulder.write(70);
-      lclavi.write(100);
+      lclavi.write(105);
       lbicep.write(60);
       delay(2000);
       lrotate.write(20);
@@ -157,7 +155,7 @@ void loop() {
 
       // hover 2 with left arm
       lshoulder.write(70);
-      lclavi.write(100);
+      lclavi.write(105);
       lbicep.write(60);
       delay(2000);
       lrotate.write(20);
