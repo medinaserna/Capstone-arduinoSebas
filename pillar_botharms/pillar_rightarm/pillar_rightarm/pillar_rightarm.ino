@@ -46,7 +46,7 @@ Servo rthumb, rindex, rmajeur, rpinky, rring, rbicep, rrotate, rshoulder, rclavi
 char rMagnetInUse = 0;  // indicates if the magnet is on or off
 char rRestPosition = 1;  // indicates if the robot arm is in rest position
 
-//functions defintions
+//functions declaration
 void rUseMagnet(void);  //function used to turn on or off the magnet
 void rGoToHover0(void);  //function that send commands to the servomotors to go to the hover0 position
 
