@@ -38,7 +38,7 @@ R (uppercase): rest. Send the robot arm to the rest position. h0 - p0
 
 //---------LIBRARIES-------------
 #include <Adafruit_PWMServoDriver.h>
-#include <LiquidCrystal.h>
+//#include <LiquidCrystal.h>
 //---------END OF LIBRARIES-------------
 
 
@@ -83,8 +83,8 @@ uint8_t lclavi = 9;     //clavi
 uint8_t servonum = 0;
 bool robotStarted = false;
 
-const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
-LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+//const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+//LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 char rMagnetInUse = 0;  // indicates if the magnet is on or off
 
@@ -104,23 +104,38 @@ void rGoToPosition3(void);  //function that send commands to the servomotors to 
 
 
 void setup() {
+
+
+  //-----DEBUGGIN : DELETE WHEN FINISHES------------------
+
+  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(2, OUTPUT);
+  pinMode(3, OUTPUT);
+
+  //-----END OF DEBUGGIN : DELETE WHEN FINISHES------------------
+
+  
   pwmr.begin();
   pwmr.setOscillatorFrequency(27000000);
   pwmr.setPWMFreq(SERVO_FREQ);
   delay(10);
   //Serial.println("Servo Test");
 
+
+
+
+
   // set up the LCD's number of columns and rows:
-  lcd.begin(16, 2);
+  //lcd.begin(16, 2);
   // Print a message to the LCD to test is working
-  lcd.print("hello, world!");
+  //lcd.print("hello, world!");
   delay(2000);
   // open the serial port:
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   //this pin is the one to turn on/off the magnet. It setup as digital output
   pinMode(rMagnetPin, OUTPUT);
-
+  /*
   // Set initial positions for each servo (0 to 180 degrees)
   int initialPositionsr[] = { 90, 90, 90, 90, 90, 110, 80, 60, 110 };  // Rest positions to Right Arm
   int initialPositionsl[] = { 50, 50, 50, 50, 50, 60, 90, 10, 100 };   // Rest positions left arm
@@ -140,6 +155,8 @@ void setup() {
       pwml.setPWM(servoPinl, 0, initialPulsel);
     }
   }
+
+  */
 }
 
 
@@ -156,6 +173,11 @@ void loop() {
   if (Serial.available() > 0) {
 
     char receivedChar = Serial.read();
+
+
+
+
+
     //Serial.print("Received character: ");
     //Serial.println(receivedChar);
 
@@ -164,16 +186,24 @@ void loop() {
       startRobot();
       rGoToHover0();
 
+
+      digitalWrite(LED_BUILTIN, HIGH);  // DEBUGGING
+      delay(2000);                      //DEBUGGING
+
+
       return;
     }
 
-    char commandMov = receivedChar;
+
     //  Serial.print("Received command for servoPin: ");
     // Serial.println(commandMov);
 
-    switch (commandMov) {
+    switch (receivedChar) {
 
       case 'a':  // movement disc from 1 to 3. This is h1-p1-h1-h3-p3-h3
+
+    digitalWrite(rMagnetPin, HIGH);  // DEBUGGING
+    delay(2000);            // DEBUGGING
 
         rGoToHover1();
         rGoToPosition1();
@@ -185,10 +215,17 @@ void loop() {
         rUseMagnet();
         delay(1000);
         rGoToHover3();
+
+                digitalWrite(2, HIGH);  // DEBUGGING
+        delay(2000);            // DEBUGGING
+
+
+
         break;
 
 
       case 'b':  //movement disc from 1 to 2. this is h1-p1-h1-h2-p2-h2
+       
         rGoToHover1();
         rGoToPosition1();
         rUseMagnet();
@@ -199,6 +236,13 @@ void loop() {
         rUseMagnet();
         delay(1000);
         rGoToHover2();
+
+
+
+
+        digitalWrite(3, HIGH);  // DEBUGGING
+        delay(2000);            // DEBUGGING
+
         break;
 
       case 'c':  // movement disc from 3 to 2. this is h3-p3-h3-h2-p2-h2
@@ -213,6 +257,11 @@ void loop() {
         rUseMagnet();
         delay(1000);
         rGoToHover2();
+
+
+        digitalWrite(LED_BUILTIN, LOW);  // DEBUGGING
+        delay(2000);                     // DEBUGGING
+
         break;
 
 
@@ -228,9 +277,15 @@ void loop() {
         rUseMagnet();
         delay(1000);
         rGoToHover3();
+
+
+        digitalWrite(2, LOW);  // DEBUGGING
+        delay(2000);           // DEBUGGING
+
         break;
 
       case 'e':  //movement disc from 2 to 1. this is h2-p2-h2-h1-p1-h1
+
 
         rGoToHover2();
         rGoToPosition2();
@@ -242,6 +297,10 @@ void loop() {
         rUseMagnet();
         delay(1000);
         rGoToHover1();
+
+        digitalWrite(3, LOW);  // DEBUGGING
+        delay(2000);           // DEBUGGING
+
         break;
 
 
@@ -257,6 +316,12 @@ void loop() {
         rUseMagnet();
         delay(1000);
         rGoToHover3();
+
+
+        digitalWrite(LED_BUILTIN, HIGH);  // DEBUGGING
+
+
+
         break;
 
       case 'g':  //movement disc from 1 to 3. this is h1-p1-h1-h3-p3-h3
@@ -271,6 +336,11 @@ void loop() {
         rUseMagnet();
         delay(1000);
         rGoToHover3();
+
+        digitalWrite(2, HIGH);  // DEBUGGING
+
+
+
         break;
 
       case 'R':  // Rest. Send the robot arm to the rest position. h0 - p0
@@ -281,6 +351,13 @@ void loop() {
 
         rMagnetInUse = 0;
         robotStarted = false;
+
+
+        digitalWrite(3, HIGH);  // DEBUGGING
+
+        break;
+
+      default:
         break;
     }
   }
